@@ -20,7 +20,7 @@ int main (void) {
 
     printf("\nEnter the maximum number of contacts your list will have: ");
     scanf("%d", &contactNum);
-    //struct Contacto[contactNum]; // Create ContactList
+    //Contacto contacto1[contactNum]; // Create ContactList
     printf("\nCreated!\n ... \n ");
     
     printf("\nWelcome %s!\n", nombre);
