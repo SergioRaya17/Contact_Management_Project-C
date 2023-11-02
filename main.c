@@ -10,7 +10,7 @@
 
 int main (void) {
     char nombre[25], cntName[25], cntMail[50];
-    int control = 1, contactNum, cntPhone;
+    int control = 1, contactNum, cntPhone, contador = 0, contactoId;
 
     printf("Identify yourself! Input your name: ");
     fgets(nombre, sizeof(nombre), stdin);
@@ -20,7 +20,7 @@ int main (void) {
 
     printf("\nEnter the maximum number of contacts your list will have: ");
     scanf("%d", &contactNum);
-    Contacto contacto1[contactNum]; // Create ContactList
+    Contact contactList[contactNum]; // Create ContactList
     printf("\nCreated!\n ... \n ");
     
     printf("\nWelcome %s!\n", nombre);
@@ -37,29 +37,60 @@ int main (void) {
 
         switch (control) {      // mirar otras opciones para remplazar el switch por algo más optimo
         case 1:
-            // Llamar a la función createContact()
             printf("\n\nInput contact's name: ");
-            getchar();
+            fflush(stdin);
             fgets(cntName, sizeof(cntName), stdin);
 
             printf("Input contact's email: ");
-            getchar();
+            fflush(stdin);
             fgets(cntMail, sizeof(cntMail), stdin);
 
             printf("Input contact's phone: ");
-            scanf("%d", cntPhone);
+            scanf("%d", &cntPhone);
 
             cntName[strcspn(cntName, "\n")] = '\0';
             cntMail[strcspn(cntMail, "\n")] = '\0';
 
-            createContact(cntName, cntPhone, cntMail);
-            printf("\n\nContact created!\n");
+            createContact(cntName, cntPhone, cntMail, &contactList[contador]);
+            contador++;
+            printf("\n\n\nContact created!\n");
+
             break;
         case 2:
-            // Llamar a la función modifyContact()
+            printf("\n\nEnter the id number of the contact to modify it: ");
+            scanf("%d", &contactoId);
+            contactoId--; // Para hacerlo más amigable con el usuario.
+
+            printf("\nUser %d: \n", contactoId + 1);
+            printf("%s\n", contactList[contactoId].nombre);
+            printf("%s\n", contactList[contactoId].email);
+            printf("%d\n", contactList[contactoId].telefono);
+
+            printf("\n\nInput contact's new name: ");
+            fflush(stdin);
+            fgets(cntName, sizeof(cntName), stdin);
+
+            printf("Input contact's new email: ");
+            fflush(stdin);
+            fgets(cntMail, sizeof(cntMail), stdin);
+
+            printf("Input contact's new phone: ");
+            scanf("%d", &cntPhone);
+
+            cntName[strcspn(cntName, "\n")] = '\0';
+            cntMail[strcspn(cntMail, "\n")] = '\0';
+
+            modifyContact(cntName, cntMail, cntPhone, &contactList[contactoId]);
+            printf("\n\n\nContact modified!\n");
+
             break;
         case 3:
-            // Llamar a la función listContacts()
+            for (int i = 0; i < contador; i++){
+                printf("\nUser %d: \n", i + 1);
+                printf("%s\n", contactList[i].nombre);
+                printf("%s\n", contactList[i].email);
+                printf("%d\n", contactList[i].telefono);
+            }
             break;
         case 4:
             // Llamar a la función deleteContact()

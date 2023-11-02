@@ -3,12 +3,13 @@
     Date: 02/11/2023
     Version: 1.0
 */ 
-typedef struct Contacto {
+typedef struct Contact {
     char nombre[25];
     int telefono;
     char email[50];
-} Contacto;
+} Contact;
 
-void createContact(char nombre[], int telefono, char email[]);
+void createContact(char nombre[], int telefono, char email[], Contact *contactList);
+void modifyContact(char[], char[], int, Contact*);
 
 
