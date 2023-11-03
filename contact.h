@@ -11,5 +11,4 @@ typedef struct Contact {
 
 void createContact(char nombre[], int telefono, char email[], Contact *contactList);
 void modifyContact(char[], char[], int, Contact*);
-
-
+void deleteContact(Contact *contactDel, int idContact, int arraySize);

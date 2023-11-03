@@ -86,14 +86,20 @@ int main (void) {
             break;
         case 3:
             for (int i = 0; i < contador; i++){
-                printf("\nUser %d: \n", i + 1);
+                printf("\nContact %d: \n", i + 1);
                 printf("%s\n", contactList[i].nombre);
                 printf("%s\n", contactList[i].email);
                 printf("%d\n", contactList[i].telefono);
             }
             break;
         case 4:
-            // Llamar a la función deleteContact()
+            printf("\n\nEnter the id number of the contact to delete it: ");
+            scanf("%d", &contactoId);
+            contactoId--; // Para hacerlo más amigable con el usuario.
+
+            deleteContact(&contactList[0], contactoId, contactNum);
+            contador--;
+            printf("\n\n\nContact %d deleted!\n", contactoId + 1);
             break;
         case 5:
             control = 0;
