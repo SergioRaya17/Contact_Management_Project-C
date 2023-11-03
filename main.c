@@ -39,17 +39,14 @@ int main (void) {
         case 1:
             printf("\n\nInput contact's name: ");
             fflush(stdin);
-            fgets(cntName, sizeof(cntName), stdin);
+            scanf("%[^\n]", cntName);
 
             printf("Input contact's email: ");
             fflush(stdin);
-            fgets(cntMail, sizeof(cntMail), stdin);
+            scanf("%[^\n]", cntMail);
 
             printf("Input contact's phone: ");
             scanf("%d", &cntPhone);
-
-            cntName[strcspn(cntName, "\n")] = '\0';
-            cntMail[strcspn(cntMail, "\n")] = '\0';
 
             createContact(cntName, cntPhone, cntMail, &contactList[contador]);
             contador++;
@@ -66,19 +63,16 @@ int main (void) {
             printf("%s\n", contactList[contactoId].email);
             printf("%d\n", contactList[contactoId].telefono);
 
-            printf("\n\nInput contact's new name: ");
+            printf("\n\nInput contact's name: ");
             fflush(stdin);
-            fgets(cntName, sizeof(cntName), stdin);
+            scanf("%[^\n]", cntName);
 
-            printf("Input contact's new email: ");
+            printf("Input contact's email: ");
             fflush(stdin);
-            fgets(cntMail, sizeof(cntMail), stdin);
+            scanf("%[^\n]", cntMail);
 
-            printf("Input contact's new phone: ");
+            printf("Input contact's phone: ");
             scanf("%d", &cntPhone);
-
-            cntName[strcspn(cntName, "\n")] = '\0';
-            cntMail[strcspn(cntMail, "\n")] = '\0';
 
             modifyContact(cntName, cntMail, cntPhone, &contactList[contactoId]);
             printf("\n\n\nContact modified!\n");
