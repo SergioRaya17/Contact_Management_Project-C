@@ -27,9 +27,10 @@ int main (void) {
     scanf("%d", &contactNum);
     Contact contactList[contactNum]; // Create ContactList
     printf("\nCreated!\n ... \n ");
-    
+
     printf("\nWelcome %s!\n", nombre);
     printf("To the Contact Management System. Thanks for choosing us!\n\n");
+
     do {
         printf("\n---------- | Contact Management System | ----------\n");
         printf("\n1. Add contact");
@@ -39,6 +40,7 @@ int main (void) {
         printf("\n5. Exit program");
         printf("\nInput your choice: ");
         scanf("%d", &control);
+
 
         switch (control) {      // mirar otras opciones para remplazar el switch por algo más óptimo.
         case 1:
@@ -88,10 +90,15 @@ int main (void) {
         }
 
     } while (control != 0);
+
+    system("cls");
     printf("\n\nExit with success!\n");
     printf("\nHave a great day %s!\n\n", nombre);
-    
+
 }
+
+
+
 
 void showContact (int contactId, Contact contactList[]) {
     printf("%s\n", contactList[contactId].nombre);
