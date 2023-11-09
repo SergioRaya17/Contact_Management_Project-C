@@ -5,13 +5,18 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "contact.h"
+
+void showContact (int contactId, Contact contactList[]);
+void getData(char* name, char* email, int* phone);
 
 int main (void) {
     char nombre[25], cntName[25], cntMail[50];
     int control = 1, contactNum, cntPhone, contador = 0, contactoId;
 
+    system("cls");
     printf("Identify yourself! Input your name: ");
     fgets(nombre, sizeof(nombre), stdin);
     nombre[strcspn(nombre, "\n")] = '\0';
@@ -24,7 +29,7 @@ int main (void) {
     printf("\nCreated!\n ... \n ");
     
     printf("\nWelcome %s!\n", nombre);
-    printf("To the Contact Management System. Here you will be abel to manage, create, delete and watch your contacts. Thanks for choosing us!\n\n");
+    printf("To the Contact Management System. Thanks for choosing us!\n\n");
     do {
         printf("\n---------- | Contact Management System | ----------\n");
         printf("\n1. Add contact");
@@ -35,45 +40,23 @@ int main (void) {
         printf("\nInput your choice: ");
         scanf("%d", &control);
 
-        switch (control) {      // mirar otras opciones para remplazar el switch por algo más optimo
+        switch (control) {      // mirar otras opciones para remplazar el switch por algo más óptimo.
         case 1:
-            printf("\n\nInput contact's name: ");
-            fflush(stdin);
-            scanf("%[^\n]", cntName);
-
-            printf("Input contact's email: ");
-            fflush(stdin);
-            scanf("%[^\n]", cntMail);
-
-            printf("Input contact's phone: ");
-            scanf("%d", &cntPhone);
-
+            getData(cntName, cntMail, &cntPhone);
             createContact(cntName, cntPhone, cntMail, &contactList[contador]);
-            contador++;
             printf("\n\n\nContact created!\n");
+            contador++; 
 
             break;
         case 2:
             printf("\n\nEnter the id number of the contact to modify it: ");
             scanf("%d", &contactoId);
-            contactoId--; // Para hacerlo más amigable con el usuario.
+            contactoId--; // Más amigable
 
             printf("\nUser %d: \n", contactoId + 1);
-            printf("%s\n", contactList[contactoId].nombre);
-            printf("%s\n", contactList[contactoId].email);
-            printf("%d\n", contactList[contactoId].telefono);
+            showContact(contactoId, &contactList[0]);
 
-            printf("\n\nInput contact's name: ");
-            fflush(stdin);
-            scanf("%[^\n]", cntName);
-
-            printf("Input contact's email: ");
-            fflush(stdin);
-            scanf("%[^\n]", cntMail);
-
-            printf("Input contact's phone: ");
-            scanf("%d", &cntPhone);
-
+            getData(cntName, cntMail, &cntPhone);
             modifyContact(cntName, cntMail, cntPhone, &contactList[contactoId]);
             printf("\n\n\nContact modified!\n");
 
@@ -81,25 +64,24 @@ int main (void) {
         case 3:
             for (int i = 0; i < contador; i++){
                 printf("\nContact %d: \n", i + 1);
-                printf("%s\n", contactList[i].nombre);
-                printf("%s\n", contactList[i].email);
-                printf("%d\n", contactList[i].telefono);
+                showContact(i, &contactList[0]);
             }
+
             break;
         case 4:
             printf("\n\nEnter the id number of the contact to delete it: ");
             scanf("%d", &contactoId);
-            contactoId--; // Para hacerlo más amigable con el usuario.
 
+            printf("\n\n\nContact %s deleted!\n", contactList[contactoId-1].nombre);
             deleteContact(&contactList[0], contactoId, contactNum);
-            contador--;
-            printf("\n\n\nContact %d deleted!\n", contactoId + 1);
+            contador--; // Restamos un contacto.
             break;
         case 5:
             control = 0;
             break;
 
         default:
+            system("cls");
             printf("ERROR!\n");
             printf("%d Is NOT a valid option. You have to choose between the 5 options.", control);
             break;
@@ -107,6 +89,32 @@ int main (void) {
 
     } while (control != 0);
     printf("\n\nExit with success!\n");
-    printf("\nHave a great day!\n\n");
+    printf("\nHave a great day %s!\n\n", nombre);
     
+}
+
+void showContact (int contactId, Contact contactList[]) {
+    printf("%s\n", contactList[contactId].nombre);
+    printf("%s\n", contactList[contactId].email);
+    printf("%d\n", contactList[contactId].telefono);
+}
+
+void getData(char* name, char* email, int* phone) {
+    char cntName[25], cntMail[50];
+    int cntPhone;
+
+    printf("\n\nInput contact's name: ");
+    fflush(stdin);
+    scanf("%[^\n]", cntName);
+
+    printf("Input contact's email: ");
+    fflush(stdin);
+    scanf("%[^\n]", cntMail);
+
+    printf("Input contact's phone: ");
+    scanf("%d", &cntPhone);
+
+    strncpy(name, cntName, sizeof(cntName));
+    strncpy(email, cntMail, sizeof(cntMail));
+    *phone = cntPhone;
 }
